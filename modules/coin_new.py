@@ -192,13 +192,13 @@ def gateio_differ():
 
 
 def coinbase_differ():
-    url = "https://api.exchange.coinbase.com/products"
+    url = "https://api.exchange.coinbase.com/currencies"
     coin = json.loads(requests.get(url=url).text)
     truncate("coinbase_temp_coin")
     try:
         temp_coin = []
         for i in coin:
-            temp_coin.append(i['base_currency'])
+            temp_coin.append(i['id'])
         for coin in list(set(temp_coin)):
             mysql_add("coinbase_temp_coin", coin)
         data = differ("coinbase_coin", "coinbase_temp_coin")  # 获取比差数据
@@ -210,7 +210,7 @@ def coinbase_differ():
         else:
             pass
     except:
-        send_message("coinbase[所有交易对信息]接口故障，请检查")
+        send_message("coinbase[Get all known currencies]接口故障，请检查")
 
 
 def kucoin_differ():
