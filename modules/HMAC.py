@@ -31,7 +31,7 @@ class okex:
 
         return {
             "OK-ACCESS-KEY": self.Apikey,
-            "OK-ACCESS-SIGN": str(okex.sign(s, self.secretKey)),
+            "OK-ACCESS-SIGN": okex.sign(s, self.secretKey),
             "OK-ACCESS-TIMESTAMP": str(timestamp),
             "OK-ACCESS-PASSPHRASE": self.passphrase,
             "Content-Type": "application/json"
