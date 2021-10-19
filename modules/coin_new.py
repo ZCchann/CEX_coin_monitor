@@ -1,4 +1,5 @@
 from binance.spot import Spot as Client
+from modules.HMAC import okex
 from modules.coin_bot import send_message
 from config import Binance_Config,databases
 import requests
@@ -126,13 +127,15 @@ def huobi_differ():
 
 
 def okex_differ():
-    url = "https://www.okex.com/api/v5/public/instruments?instType=SPOT"
-    coin = json.loads(requests.get(url=url).text)  # 获取OKEX所有币种数据
+    host = "https://www.okex.com"
+    requestPath = "/api/v5/asset/currencies"
+    headers = okex(method="GET", requestPath=requestPath, body="").gen_sign()
+    coin = json.loads(requests.get(url=host + requestPath, headers=headers).text)  # 获取OKEX所有币种数据
     truncate("okex_temp_coin")  # 清空临时数据表
     if coin["code"] == "0":
         temp_coin = []
         for i in coin["data"]:
-            temp_coin.append(i["baseCcy"])
+            temp_coin.append(i["ccy"])
         for coin in list(set(temp_coin)):  # 去重
             mysql_add("okex_temp_coin", coin)
         data = differ("okex_coin", "okex_temp_coin")  # 获取比差数据
@@ -144,7 +147,7 @@ def okex_differ():
         else:
             pass
     else:
-        send_message("OKEX[获取交易产品基础信息]接口故障，请检查")
+        send_message("OKEX[获取币种列表]接口故障，请检查")
 
 
 def mexc_differ():

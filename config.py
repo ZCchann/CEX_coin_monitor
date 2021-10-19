@@ -15,6 +15,12 @@ class databases:
     database = 'databse'
 
 
+class OKex_Config:
+    Apikey = ""
+    secretKey = ""
+    passphrase = ""
+
+
 # telegram 频道ID
 chat_id = 123456
 bot_token = ""
