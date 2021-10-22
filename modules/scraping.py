@@ -71,7 +71,7 @@ def copy_table(table, temp_table):
 def binance():
     html = urlopen(url='https://www.binance.com/zh-CN/support/announcement')
     bs = BeautifulSoup(html.read(), 'html.parser')
-
+    binance_notice_temp.truncate()  # 清空临时数据表
     data = []  # 存放差异数据list
     for i in bs.find_all(class_='css-qinc3w'):
         data.append({
@@ -83,14 +83,13 @@ def binance():
         # 数据写入临时数据表
         binance_notice_temp.add(i["url"], i["title"])
 
-    dif = differ(temp_table="binance_notice_temp", table="binance_notice")
+    dif = differ(temp_table="binance_notice_temp", table="binance_notice")  # 获得两张表比差数据
     if dif:
-        binance_notice.truncate()
-        copy_table("binance_notice", "binance_notice_temp")
-
+        binance_notice.truncate()  # 清空币安公告表
+        copy_table("binance_notice", "binance_notice_temp")  # 复制临时表与公告表
         for i in data:
             send_message("币安交易所发布了新的公告:\n" +
-                         "[{}]({})".format(i["title"], i["url"]))
+                         "[{}]({})".format(i["title"], i["url"]))  # markdown格式传输文本
             time.sleep(1)
     else:
         pass
