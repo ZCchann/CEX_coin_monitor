@@ -33,10 +33,10 @@ def mysql_add(table, coin):  # 添加数据到表
 
 
 def differ(table, temp_table):  # 两张表比差
-    db = pymysql.connect(host='localhost',
-                         user='root',
-                         password='Zc!@#$%12345',
-                         database='binance')
+    db = pymysql.connect(host=databases.host,
+                         user=databases.user,
+                         password=databases.password,
+                         database=databases.database)
     cursor = db.cursor()
 
     # SQL 插入语句
@@ -55,10 +55,10 @@ def differ(table, temp_table):  # 两张表比差
 
 def copy_table(table, temp_table):  # 复制两张表内容
     sql = """insert into {} select * from {};""".format(table, temp_table)
-    db = pymysql.connect(host='localhost',
-                         user='root',
-                         password='Zc!@#$%12345',
-                         database='binance')
+    db = pymysql.connect(host=databases.host,
+                         user=databases.user,
+                         password=databases.password,
+                         database=databases.database)
     cursor = db.cursor()
 
     try:
@@ -72,10 +72,10 @@ def copy_table(table, temp_table):  # 复制两张表内容
 
 
 def truncate(table):  # 清空数据表
-    db = pymysql.connect(host='localhost',
-                         user='root',
-                         password='Zc!@#$%12345',
-                         database='binance')
+    db = pymysql.connect(host=databases.host,
+                         user=databases.user,
+                         password=databases.password,
+                         database=databases.database)
     cursor = db.cursor()
     sql = """truncate table {}""".format(table)
     try:
@@ -151,13 +151,14 @@ def okex_differ():
 
 
 def mexc_differ():
-    url = "https://www.mexc.com/open/api/v2/market/symbols"
+    # url = "https://www.mexc.com/open/api/v2/market/symbols"
+    url = "https://www.mexc.com/open/api/v2/market/coin/list"
     coin = json.loads(requests.get(url=url).text)
     truncate("mexc_temp_coin")
     if coin["code"] == 200:
         temp_coin = []
         for i in coin["data"]:
-            temp_coin.append(i['vcoinName'])
+            temp_coin.append(i['currency'])
         for coin in list(set(temp_coin)):
             mysql_add("mexc_temp_coin", coin)
         data = differ("mexc_coin", "mexc_temp_coin")  # 获取比差数据
