@@ -9,10 +9,13 @@ class Binance_Config:
 
 
 class databases:
-    host = 'localhost',
-    user = 'user',
-    password = 'password',
+    host = 'localhost'
+    user = 'user'
+    port = 3306
+    password = 'password'
     database = 'databse'
+
+    DB_URI = f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}'
 
 
 class OKex_Config:

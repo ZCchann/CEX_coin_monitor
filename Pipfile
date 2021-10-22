@@ -5,8 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
-binance-connector = "*"
 pymysql = "*"
+beautifulsoup4 = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 
