@@ -17,7 +17,6 @@ class databases:
 
     DB_URI = f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}'
 
-
 class OKex_Config:
     Apikey = ""
     secretKey = ""

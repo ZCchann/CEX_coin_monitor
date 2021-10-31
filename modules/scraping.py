@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from config import databases
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, Integer, VARCHAR
+from sqlalchemy import create_engine, Column, Integer, VARCHAR, TEXT
 from sqlalchemy.orm import sessionmaker
 from modules.coin_bot import send_message
 import time
@@ -50,6 +50,31 @@ class binance_notice_temp(DB):
         session.commit()
 
 
+class binance_sitemap_en_9(DB):
+    __tablename__ = 'binance_sitemap_en_9'  # 表名
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    url = Column(TEXT)
+
+    @staticmethod
+    def add(url):
+        stu = binance_sitemap_en_9(url=url)
+        session.add(stu)
+        session.commit()
+
+    @staticmethod
+    def truncate():
+        sql = """truncate table binance_sitemap_en_9"""
+        session.execute(sql)
+        session.commit()
+
+    @staticmethod
+    def query():
+        data = []
+        for i in session.query(binance_sitemap_en_9).all():
+            data.append(i.url)
+        return data
+
+
 def differ(table, temp_table):
     sql = 'select distinct url,text from {} where url  not in (select url from {});'.format(temp_table, table)
     ret = session.execute(sql)
@@ -90,6 +115,23 @@ def binance():
         for i in data:
             send_message("币安交易所发布了新的公告:\n" +
                          "[{}]({})".format(i["title"], i["url"]))  # markdown格式传输文本
+            time.sleep(1)
+    else:
+        pass
+
+
+def binance_sitemap():
+    html = urlopen(url="https://www.binance.com/sitemap_en_9.xml")
+    bs = BeautifulSoup(html.read(), 'html.parser')
+    data = []
+    for i in bs.find_all("loc"):  # 获取url
+        data.append(i.text)
+
+    dif = list(set(data).difference(set(binance_sitemap_en_9.query())))   # 比差集
+    if dif:
+        for i in dif:
+            binance_sitemap_en_9.add(i)
+            send_message("""币安交易所sitemap9添加了新的页面:\n{}""".format(i))
             time.sleep(1)
     else:
         pass
