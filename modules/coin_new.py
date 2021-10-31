@@ -99,7 +99,7 @@ def binance_differ():
         truncate("binance_coin")  # 清空基础数据表
         copy_table("binance_coin", "binance_temp_coin")  # 更新基础数据表至最新数据
         for i in data:
-            send_message("币安交易所钱包增加了新的币种 #{}，请注意币安公告".format(i))  # 推送本次上币信息
+            send_message("币安交易所钱包增加了新的币种 \\#{}，请注意币安公告".format(i))  # 推送本次上币信息
     else:
         pass
 
@@ -118,7 +118,7 @@ def huobi_differ():
             truncate("huobi_coin")  # 清空基础数据表
             copy_table("huobi_coin", "huobi_temp_coin")  # 更新基础数据表至最新数据
             for i in data:
-                send_message("火币交易所钱包增加了新的币种 #{}，请注意火币公告".format(i.upper()))  # 推送本次上币信息
+                send_message("火币交易所钱包增加了新的币种 \\#{}，请注意火币公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
 
@@ -143,7 +143,7 @@ def okex_differ():
             truncate("okex_coin")  # 清空基础数据表
             copy_table("okex_coin", "okex_temp_coin")  # 更新基础数据表至最新数据
             for i in data:
-                send_message("OKEX交易所钱包增加了新的币种 #{}，请注意OKEX公告".format(i.upper()))  # 推送本次上币信息
+                send_message("OKEX交易所钱包增加了新的币种 \\#{}，请注意OKEX公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
     else:
@@ -166,7 +166,7 @@ def mexc_differ():
             truncate("mexc_coin")  # 清空基础数据表
             copy_table("mexc_coin", "mexc_temp_coin")  # 更新基础数据表至最新数据
             for i in data:
-                send_message("MEXC交易所钱包增加了新的币种 #{}，请注意MEXC公告".format(i.upper()))  # 推送本次上币信息
+                send_message("MEXC交易所钱包增加了新的币种 \\#{}，请注意MEXC公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
     else:
@@ -188,7 +188,7 @@ def gateio_differ():
             truncate("gateio_coin")  # 清空基础数据表
             copy_table("gateio_coin", "gateio_temp_coin")  # 更新基础数据表至最新数据
             for i in data:
-                send_message("Gate.io交易所钱包增加了新的币种 #{}，请注意Gate.io公告".format(i.upper()))  # 推送本次上币信息
+                send_message("Gate.io交易所钱包增加了新的币种 \\#{}，请注意Gate.io公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
     except:
@@ -210,7 +210,7 @@ def coinbase_differ():
             truncate("coinbase_coin")  # 清空基础数据表
             copy_table("coinbase_coin", "coinbase_temp_coin")  # 更新基础数据表至最新数据
             for i in data:
-                send_message("coinbase交易所钱包增加了新的币种 #{}，请注意coinbase公告".format(i.upper()))  # 推送本次上币信息
+                send_message("coinbase交易所钱包增加了新的币种 \\#{}，请注意coinbase公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
     except:
@@ -232,7 +232,7 @@ def kucoin_differ():
             truncate("kucoin_coin")  # 清空基础数据表
             copy_table("kucoin_coin", "kucoin_temp_coin")  # 更新基础数据表至最新数据
             for i in data:
-                send_message("kucoin交易所钱包增加了新的币种 #{}，请注意kucoin公告".format(i.upper()))  # 推送本次上币信息
+                send_message("kucoin交易所钱包增加了新的币种 \\#{}，请注意kucoin公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
     else:
@@ -255,7 +255,7 @@ def ftx_differ():
             truncate("ftx_coin")  # 清空基础数据表
             copy_table("ftx_coin", "ftx_temp_coin")  # 更新基础数据表至最新数据
             for i in data:
-                send_message("FTX交易所钱包增加了新的币种 #{}，请注意FTX公告".format(i.upper()))  # 推送本次上币信息
+                send_message("FTX交易所钱包增加了新的币种 \\#{}，请注意FTX公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
     else:

@@ -112,9 +112,8 @@ def binance():
     if dif:
         binance_notice.truncate()  # 清空币安公告表
         copy_table("binance_notice", "binance_notice_temp")  # 复制临时表与公告表
-        for i in data:
-            send_message("币安交易所发布了新的公告:\n" +
-                         "[{}]({})".format(i["title"], i["url"]))  # markdown格式传输文本
+        for i in dif:
+            send_message("""币安交易所发布了新的公告:\n{}\n{}""".format(i["text"], i["url"]))  # markdown格式传输文本
             time.sleep(1)
     else:
         pass
