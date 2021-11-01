@@ -100,7 +100,7 @@ def binance():
     data = []  # 存放差异数据list
     for i in bs.find_all(class_='css-qinc3w'):
         data.append({
-            "url": "https://www.binance.com/" + i.attrs["href"],
+            "url": "https://www.binance.com" + i.attrs["href"],
             "title": i.get_text()
         })
 
