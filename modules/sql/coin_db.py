@@ -8,7 +8,7 @@ DB = declarative_base(engine)  # SQLORM基类
 session = sessionmaker(engine)()
 
 
-class binance(DB):
+class binance_db(DB):
     __tablename__ = 'binance_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))
@@ -46,7 +46,7 @@ class okex_db(DB):
         return data
 
 
-class coinbase(DB):
+class coinbase_db(DB):
     __tablename__ = 'coinbase_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))
@@ -65,7 +65,7 @@ class coinbase(DB):
         return data
 
 
-class ftx(DB):
+class ftx_db(DB):
     __tablename__ = 'ftx_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))
@@ -84,7 +84,7 @@ class ftx(DB):
         return data
 
 
-class gateio(DB):
+class gateio_db(DB):
     __tablename__ = 'gateio_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))
@@ -103,7 +103,7 @@ class gateio(DB):
         return data
 
 
-class huobi(DB):
+class huobi_db(DB):
     __tablename__ = 'huobi_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))
@@ -122,7 +122,7 @@ class huobi(DB):
         return data
 
 
-class kucoin(DB):
+class kucoin_db(DB):
     __tablename__ = 'kucoin_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))
@@ -141,7 +141,7 @@ class kucoin(DB):
         return data
 
 
-class mexc(DB):
+class mexc_db(DB):
     __tablename__ = 'mexc_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))

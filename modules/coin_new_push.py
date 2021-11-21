@@ -16,10 +16,10 @@ def binance_differ():
     for i in ret_data:
         data.append(i["coin"])  # 写入临时数据表
 
-    dif = list(set(data).difference(set(binance.query())))  # 比差集
+    dif = list(set(data).difference(set(binance_db.query())))  # 比差集
     if dif:
         for i in dif:
-            binance.add(i)
+            binance_db.add(i)
             send_message("币安交易所钱包增加了新的币种 #{}，请注意币安公告".format(i))  # 推送本次上币信息
             time.sleep(1)
     else:
@@ -34,10 +34,10 @@ def huobi_differ():
         for i in coin["data"]:
             data.append(i)
 
-        dif = list(set(data).difference(set(huobi.query())))  # 比差集
+        dif = list(set(data).difference(set(huobi_db.query())))  # 比差集
         if dif:
             for i in dif:
-                huobi.add(i)
+                huobi_db.add(i)
                 send_message("火币交易所钱包增加了新的币种 #{}，请注意火币公告".format(i.upper()))  # 推送本次上币信息
                 time.sleep(1)
         else:
@@ -60,10 +60,10 @@ def okex_differ():
         for coin in list(set(temp_coin)):  # 去重
             data.append(coin)
 
-        dif = list(set(data).difference(set(okex.query())))  # 比差集
+        dif = list(set(data).difference(set(okex_db.query())))  # 比差集
         if dif:
             for i in dif:
-                okex.add(i)
+                okex_db.add(i)
                 send_message("OKEX交易所钱包增加了新的币种 #{}，请注意OKEX公告".format(i.upper()))  # 推送本次上币信息
                 time.sleep(1)
         else:
@@ -82,10 +82,10 @@ def mexc_differ():
             temp_coin.append(i['currency'])
         for coin in list(set(temp_coin)):
             data.append(coin)
-        dif = list(set(data).difference(set(mexc.query())))  # 比差集
+        dif = list(set(data).difference(set(mexc_db.query())))  # 比差集
         if dif:
             for i in dif:
-                mexc.add(i)
+                mexc_db.add(i)
                 send_message("MEXC交易所钱包增加了新的币种 #{}，请注意MEXC公告".format(i.upper()))  # 推送本次上币信息
                 time.sleep(1)
         else:
@@ -104,10 +104,10 @@ def gateio_differ():
             temp_coin.append(i['base'])
         for c in list(set(temp_coin)):
             data.append(c)
-        dif = list(set(data).difference(set(gateio.query())))  # 比差集
+        dif = list(set(data).difference(set(gateio_db.query())))  # 比差集
         if dif:
             for i in dif:
-                gateio.add(i)
+                gateio_db.add(i)
                 send_message("Gate.io交易所钱包增加了新的币种 #{}，请注意Gate.io公告".format(i.upper()))  # 推送本次上币信息
                 time.sleep(1)
         else:
@@ -126,10 +126,10 @@ def coinbase_differ():
             temp_coin.append(i['id'])
         for coin in list(set(temp_coin)):
             data.append(coin)
-        dif = list(set(data).difference(set(coinbase.query())))  # 比差集
+        dif = list(set(data).difference(set(coinbase_db.query())))  # 比差集
         if dif:
             for i in dif:
-                coinbase.add(i)
+                coinbase_db.add(i)
                 send_message("coinbase交易所钱包增加了新的币种 #{}，请注意coinbase公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
@@ -147,10 +147,10 @@ def kucoin_differ():
             temp_coin.append(i['baseCurrency'])
         for coin in list(set(temp_coin)):
             data.append(coin)
-        dif = list(set(data).difference(set(kucoin.query())))  # 比差集
+        dif = list(set(data).difference(set(kucoin_db.query())))  # 比差集
         if dif:
             for i in dif:
-                kucoin.add(i)
+                kucoin_db.add(i)
                 send_message("kucoin交易所钱包增加了新的币种 #{}，请注意kucoin公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
@@ -169,10 +169,10 @@ def ftx_differ():
                 temp_coin.append(i['id'])
         for coin in list(set(temp_coin)):
             data.append(coin)
-        dif = list(set(data).difference(set(ftx.query())))  # 比差集
+        dif = list(set(data).difference(set(ftx_db.query())))  # 比差集
         if dif:
             for i in dif:
-                ftx.add(i)
+                ftx_db.add(i)
                 send_message("FTX交易所钱包增加了新的币种 #{}，请注意FTX公告".format(i.upper()))  # 推送本次上币信息
         else:
             pass
