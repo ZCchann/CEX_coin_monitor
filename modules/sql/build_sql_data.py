@@ -21,8 +21,6 @@ def huobi_build():
     if coin["status"] == "ok":
         for i in coin["data"]:
             huobi.add(i)
-
-
     else:
         send_message("火币[获取所有币种]接口故障，请检查")
 

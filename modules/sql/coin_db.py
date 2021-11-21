@@ -23,26 +23,26 @@ class binance(DB):
     def query():
         data = []
         for i in session.query(binance).all():
-            data.append(i.url)
+            data.append(i.coin)
         return data
 
 
-class okex(DB):
+class okex_db(DB):
     __tablename__ = 'okex_coin'  # 表名
     id = Column(Integer, primary_key=True, autoincrement=True)
     coin = Column(VARCHAR(64))
 
     @staticmethod
     def add(coin):
-        stu = okex(coin=coin)
+        stu = okex_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(okex).all():
-            data.append(i.url)
+        for i in session.query(okex_db).all():
+            data.append(i.coin)
         return data
 
 
@@ -61,7 +61,7 @@ class coinbase(DB):
     def query():
         data = []
         for i in session.query(coinbase).all():
-            data.append(i.url)
+            data.append(i.coin)
         return data
 
 
@@ -80,7 +80,7 @@ class ftx(DB):
     def query():
         data = []
         for i in session.query(ftx).all():
-            data.append(i.url)
+            data.append(i.coin)
         return data
 
 
@@ -99,7 +99,7 @@ class gateio(DB):
     def query():
         data = []
         for i in session.query(gateio).all():
-            data.append(i.url)
+            data.append(i.coin)
         return data
 
 
@@ -118,7 +118,7 @@ class huobi(DB):
     def query():
         data = []
         for i in session.query(huobi).all():
-            data.append(i.url)
+            data.append(i.coin)
         return data
 
 
@@ -137,7 +137,7 @@ class kucoin(DB):
     def query():
         data = []
         for i in session.query(kucoin).all():
-            data.append(i.url)
+            data.append(i.coin)
         return data
 
 
@@ -156,5 +156,5 @@ class mexc(DB):
     def query():
         data = []
         for i in session.query(mexc).all():
-            data.append(i.url)
+            data.append(i.coin)
         return data

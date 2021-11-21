@@ -34,8 +34,6 @@ def huobi_differ():
         for i in coin["data"]:
             data.append(i)
 
-        # data = differ("huobi_coin", "huobi_temp_coin")  # 获取比差数据
-
         dif = list(set(data).difference(set(huobi.query())))  # 比差集
         if dif:
             for i in dif:
@@ -54,7 +52,6 @@ def okex_differ():
     requestPath = "/api/v5/asset/currencies"
     headers = okex(method="GET", requestPath=requestPath, body="").gen_sign()
     coin = json.loads(requests.get(url=host + requestPath, headers=headers).text)  # 获取OKEX所有币种数据
-    # truncate("okex_temp_coin")  # 清空临时数据表
     data = []
     if coin["code"] == "0":
         temp_coin = []
