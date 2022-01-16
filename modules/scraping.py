@@ -113,7 +113,7 @@ def binance():
         binance_notice.truncate()  # 清空币安公告表
         copy_table("binance_notice", "binance_notice_temp")  # 复制临时表与公告表
         for i in dif:
-            send_message("""币安交易所发布了新的公告:\n{}\n{}""".format(i["text"], i["url"]))  # markdown格式传输文本
+            send_message("""币安交易所发布了新的公告:\n{}\n{}""".format(i["text"], i["url"]), config.chat_id)  # markdown格式传输文本
             time.sleep(1)
     else:
         pass
@@ -130,7 +130,7 @@ def binance_sitemap():
     if dif:
         for i in dif:
             binance_sitemap_en_9.add(i)
-            send_message("""币安交易所sitemap9添加了新的页面:\n{}""".format(i))
+            send_message("""币安交易所sitemap9添加了新的页面:\n{}""".format(i), config.chat_id)
             time.sleep(1)
     else:
         pass

@@ -6,6 +6,7 @@ from modules.sql.coin_db import *
 import requests
 import json
 import time
+import config
 
 spot_client = Client(Binance_Config.Apikey, Binance_Config.secretKey)
 
@@ -20,7 +21,7 @@ def binance_differ():
     if dif:
         for i in dif:
             binance_db.add(i)
-            send_message("币安交易所钱包增加了新的币种 #{}，请注意币安公告".format(i))  # 推送本次上币信息
+            send_message("币安交易所钱包增加了新的币种 #{}，请注意币安公告".format(i), config.chat_id)  # 推送本次上币信息
             time.sleep(1)
     else:
         pass
@@ -38,13 +39,13 @@ def huobi_differ():
         if dif:
             for i in dif:
                 huobi_db.add(i)
-                send_message("火币交易所钱包增加了新的币种 #{}，请注意火币公告".format(i.upper()))  # 推送本次上币信息
+                send_message("火币交易所钱包增加了新的币种 #{}，请注意火币公告".format(i.upper()), config.chat_id)  # 推送本次上币信息
                 time.sleep(1)
         else:
             pass
 
     else:
-        send_message("火币[获取所有币种]接口故障，请检查")
+        send_message("火币[获取所有币种]接口故障，请检查", config.chat_id)
 
 
 def okex_differ():
@@ -64,12 +65,12 @@ def okex_differ():
         if dif:
             for i in dif:
                 okex_db.add(i)
-                send_message("OKEX交易所钱包增加了新的币种 #{}，请注意OKEX公告".format(i.upper()))  # 推送本次上币信息
+                send_message("OKEX交易所钱包增加了新的币种 #{}，请注意OKEX公告".format(i.upper()), config.chat_id)  # 推送本次上币信息
                 time.sleep(1)
         else:
             pass
     else:
-        send_message("OKEX[获取币种列表]接口故障，请检查")
+        send_message("OKEX[获取币种列表]接口故障，请检查", config.chat_id)
 
 
 def mexc_differ():
@@ -86,12 +87,12 @@ def mexc_differ():
         if dif:
             for i in dif:
                 mexc_db.add(i)
-                send_message("MEXC交易所钱包增加了新的币种 #{}，请注意MEXC公告".format(i.upper()))  # 推送本次上币信息
+                send_message("MEXC交易所钱包增加了新的币种 #{}，请注意MEXC公告".format(i.upper()), config.chat_id)  # 推送本次上币信息
                 time.sleep(1)
         else:
             pass
     else:
-        send_message("MEXC[所有交易对信息]接口故障，请检查")
+        send_message("MEXC[所有交易对信息]接口故障，请检查", config.chat_id)
 
 
 def gateio_differ():
@@ -108,12 +109,12 @@ def gateio_differ():
         if dif:
             for i in dif:
                 gateio_db.add(i)
-                send_message("Gate.io交易所钱包增加了新的币种 #{}，请注意Gate.io公告".format(i.upper()))  # 推送本次上币信息
+                send_message("Gate.io交易所钱包增加了新的币种 #{}，请注意Gate.io公告".format(i.upper()), config.chat_id)  # 推送本次上币信息
                 time.sleep(1)
         else:
             pass
     except:
-        send_message("Gate.io[查询支持的所有交易对]接口故障，请检查")
+        send_message("Gate.io[查询支持的所有交易对]接口故障，请检查", config.chat_id)
 
 
 def coinbase_differ():
@@ -130,11 +131,11 @@ def coinbase_differ():
         if dif:
             for i in dif:
                 coinbase_db.add(i)
-                send_message("coinbase交易所钱包增加了新的币种 #{}，请注意coinbase公告".format(i.upper()))  # 推送本次上币信息
+                send_message("coinbase交易所钱包增加了新的币种 #{}，请注意coinbase公告".format(i.upper()), config.chat_id)  # 推送本次上币信息
         else:
             pass
     except:
-        send_message("coinbase[Get all known currencies]接口故障，请检查")
+        send_message("coinbase[Get all known currencies]接口故障，请检查", config.chat_id)
 
 
 def kucoin_differ():
@@ -151,11 +152,11 @@ def kucoin_differ():
         if dif:
             for i in dif:
                 kucoin_db.add(i)
-                send_message("kucoin交易所钱包增加了新的币种 #{}，请注意kucoin公告".format(i.upper()))  # 推送本次上币信息
+                send_message("kucoin交易所钱包增加了新的币种 #{}，请注意kucoin公告".format(i.upper()), config.chat_id)  # 推送本次上币信息
         else:
             pass
     else:
-        send_message("kucoin[所有交易对信息]接口故障，请检查")
+        send_message("kucoin[所有交易对信息]接口故障，请检查", config.chat_id)
 
 
 def ftx_differ():
@@ -173,8 +174,8 @@ def ftx_differ():
         if dif:
             for i in dif:
                 ftx_db.add(i)
-                send_message("FTX交易所钱包增加了新的币种 #{}，请注意FTX公告".format(i.upper()))  # 推送本次上币信息
+                send_message("FTX交易所钱包增加了新的币种 #{}，请注意FTX公告".format(i.upper()), config.chat_id)  # 推送本次上币信息
         else:
             pass
     else:
-        send_message("FTX[所有交易对信息]接口故障，请检查")
+        send_message("FTX[所有交易对信息]接口故障，请检查", config.chat_id)
