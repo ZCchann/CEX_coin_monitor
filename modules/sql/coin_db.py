@@ -15,14 +15,14 @@ class binance_db(DB):
 
     @staticmethod
     def add(coin):
-        stu = binance(coin=coin)
+        stu = binance_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(binance).all():
+        for i in session.query(binance_db).all():
             data.append(i.coin)
         return data
 
@@ -53,14 +53,14 @@ class coinbase_db(DB):
 
     @staticmethod
     def add(coin):
-        stu = coinbase(coin=coin)
+        stu = coinbase_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(coinbase).all():
+        for i in session.query(coinbase_db).all():
             data.append(i.coin)
         return data
 
@@ -72,14 +72,14 @@ class ftx_db(DB):
 
     @staticmethod
     def add(coin):
-        stu = ftx(coin=coin)
+        stu = ftx_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(ftx).all():
+        for i in session.query(ftx_db).all():
             data.append(i.coin)
         return data
 
@@ -91,14 +91,14 @@ class gateio_db(DB):
 
     @staticmethod
     def add(coin):
-        stu = gateio(coin=coin)
+        stu = gateio_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(gateio).all():
+        for i in session.query(gateio_db).all():
             data.append(i.coin)
         return data
 
@@ -110,14 +110,14 @@ class huobi_db(DB):
 
     @staticmethod
     def add(coin):
-        stu = huobi(coin=coin)
+        stu = huobi_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(huobi).all():
+        for i in session.query(huobi_db).all():
             data.append(i.coin)
         return data
 
@@ -129,14 +129,14 @@ class kucoin_db(DB):
 
     @staticmethod
     def add(coin):
-        stu = kucoin(coin=coin)
+        stu = kucoin_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(kucoin).all():
+        for i in session.query(kucoin_db).all():
             data.append(i.coin)
         return data
 
@@ -148,13 +148,13 @@ class mexc_db(DB):
 
     @staticmethod
     def add(coin):
-        stu = mexc(coin=coin)
+        stu = mexc_db(coin=coin)
         session.add(stu)
         session.commit()
 
     @staticmethod
     def query():
         data = []
-        for i in session.query(mexc).all():
+        for i in session.query(mexc_db).all():
             data.append(i.coin)
         return data
