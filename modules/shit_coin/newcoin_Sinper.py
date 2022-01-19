@@ -3,7 +3,6 @@ from modules.shit_coin import web3, coin_redis
 from config import bsc_config
 from decimal import Decimal
 import json
-import time
 
 
 def swap_log(transactionHash):
@@ -51,43 +50,54 @@ def decode_abi(contract_address):
         {'inputs': [], 'name': 'totalSupply', 'outputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}],
          'stateMutability': 'view', 'type': 'function'},
         {'inputs': [], 'name': 'name', 'outputs': [{'internalType': 'string', 'name': '', 'type': 'string'}],
-         'stateMutability': 'view', 'type': 'function'}]
-    # 此ABI只解析以下内容：1.name 代币名称(例:ether) 2.symbol 代币符号(例：ETH) 3.totalSupply 发行总量
+         'stateMutability': 'view', 'type': 'function'},
+        {'constant': True, 'inputs': [], 'name': 'burnAddress', 'outputs': [{'name': '', 'type': 'address'}],
+         'payable': False, 'stateMutability': 'view', 'type': 'function'},
+    ]
+    # 此ABI只解析以下内容：1.name 代币名称(例:ether) 2.symbol 代币符号(例：ETH) 3.totalSupply 发行总量 4.燃烧
     decode_contract = web3.eth.contract(address=contract_address, abi=data_abi)
 
+    symbol = decode_contract.functions.symbol().call()
+    name = decode_contract.functions.name().call()
+    totalSupply = web3.fromWei(decode_contract.functions.totalSupply().call(), 'ether')
+    try:
+        decode_contract.functions.burnAddress().call()
+        burn = "此合约带燃烧"
+    except:
+        burn = "暂未检出合约带燃烧 请自行鉴别合约源码"
     ret_data = {
-        "symbol": decode_contract.functions.symbol().call(),
-        "name": decode_contract.functions.name().call(),
-        "totalSupply": web3.fromWei(decode_contract.functions.totalSupply().call(), 'ether')
+        "symbol": symbol,
+        "name": name,
+        "totalSupply": totalSupply,
+        "burn": burn
     }
     return ret_data
 
 
-def Factory_listen():
+def Factory_listen(web3):
     block_filter = web3.eth.filter({'toBlock': "pending", 'address': bsc_config.Factory_address})
     while True:
-        try:
-            for event in block_filter.get_new_entries():
-                transactionHash = event.transactionHash.hex()  # 返回交易哈希
-                try:
-                    ret_data = swap_log(transactionHash)
-                    abi_data = decode_abi(ret_data["contract"])
-                    token_address = ret_data["contract"]  # 合约地址
-                    coin_name = abi_data["name"]  # 代币名称
-                    symbol = abi_data["symbol"]  # 代币符号
-                    totalSupply = int(Decimal(abi_data["totalSupply"]))  # 代币发行总量 单位：ether
-                    to_coin = ret_data["coin"]  # 交易对 与谁交易
-                    LP_token_address = ret_data["pancake_LP_token"]  # LP合约地址
-                    if totalSupply > 1000000:  # 发币数量大于100万
-                        coin_redis.hmset(name=token_address, mapping={
-                            "token_address": token_address,
-                            "coin_name": coin_name,
-                            "symbol": symbol,
-                            "totalSupply": totalSupply,
-                            "to_coin": to_coin,
-                            "LP_token_address": LP_token_address
-                        })
-                except:
-                    pass
-        except ValueError:
-            time.sleep(2)
+        for event in block_filter.get_new_entries():
+            transactionHash = event.transactionHash.hex()  # 返回交易哈希
+            try:
+                ret_data = swap_log(transactionHash)
+                abi_data = decode_abi(ret_data["contract"])
+                token_address = ret_data["contract"]  # 合约地址
+                coin_name = abi_data["name"]  # 代币名称
+                symbol = abi_data["symbol"]  # 代币符号
+                burn = abi_data["burn"]
+                totalSupply = int(Decimal(abi_data["totalSupply"]))  # 代币发行总量 单位：ether
+                to_coin = ret_data["coin"]  # 交易对 与谁交易
+                LP_token_address = ret_data["pancake_LP_token"]  # LP合约地址
+                if totalSupply > 1000000:  # 发币数量大于100万
+                    coin_redis.hmset(name=token_address, mapping={
+                        "token_address": token_address,
+                        "coin_name": coin_name,
+                        "symbol": symbol,
+                        "totalSupply": totalSupply,
+                        "to_coin": to_coin,
+                        "burn": burn,
+                        "LP_token_address": LP_token_address
+                    })
+            except:
+                pass
